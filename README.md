@@ -1,6 +1,6 @@
-<h1 style="color: blue;">iot-webapp-2025</h1>
+# iot-webapp-2025
 
-IoT 개발자 과정 **ASP.NET Core** 학습 리포지토리
+<p>IoT 개발자 과정 <a href="https://dotnet.microsoft.com/ko-kr/apps/aspnet" target="_blank" style="color:red;">ASP.NET Core</a> 학습 리포지토리</p>
 
 ## 1일차
 
@@ -47,14 +47,70 @@ IoT 개발자 과정 **ASP.NET Core** 학습 리포지토리
 - 웹을 요청/응답하는 프로토콜
 - HTTPs : HTTP with secure. 보안을 강화한 HTTP 프로토콜
 
-### 웹 표준기술 학습
+### 웹 표준기술 - HTML
 
 #### VS Code 확장설치
 - Live Server
 
 #### HTML 구조
+- [소스](./day01/html01.html)
 - html 태그 내에 head, body로 구성(무조건!)
-- README.md에도 HTML 태그를 그대로 사용가능
+- README.md에도 HTML 태그를 그대로 사용가능(heading은 적용안됨)
+- VS Code에서 html:5 자동생성
+- [소스](./day01/html02.html), [소스](./day01/html03.html)
+- CSS가 소스라인을 많이 사용. css는 외부스타일로 분리 사용
+- JS도 소스라인이 매우 김. JS도 외부스크립트로 분리 사용
+- 웹 브라우저의 개발자모드(F12)로 디버깅을 하는 것이 일반적
+
+#### HTML 기본태그(body에 사용)
+- [소스](./day01/html04.html)
+- h1 ~ h6 : 제목글자
+- p, br, hr : 본문, 한줄내려가기, 가로줄
+- a : 링크
+- b/strong, i, small, sub, sup, ins/u, del : 굵은체, 이탤릭체, 작은글씨, 아래첨자, 위첨자...
+- ul/ol, li : 동그라미목록/순번목록, 목록아이템
+- table, tr, th, td : 테이블, 테이블로, 테이블헤더, 테이블컬럼
+- img, audio, video : 이미지, 오디오, 비디오 
+- [소스](./day01/html05.html), [소스](./day01/html06.html)
+- form, input, button, select, textarea, label : 입력양식, 텍스트박스, 버튼, 콤보박스, 여러줄텍스트박스, 라벨
+- progress : 진행률
+- div, span : 공간분할
+
+#### 공간분할태그
+- [소스](./day01/html07.html)
+- div 사용 이전엔 table, tr, td로 화면 분할을 활용
+- table을 여러번 중복하면 렌더링속도 저하로 화면이 빨리 표시가 안됨
+- 웹 기술표준을 적용해서 div 태그로 공간분할을 시작
+- div를 CSS로 디자인 적용해서 렌더링속도를 빠르게 변경
+- 게시판 목록, 상세보기 등에서는 아직도 table을 사용 중
+
+#### 시맨틱웹
+- 웹구조를 좀더 구조적으로 세밀하게 구분짓는 의미로 만들어진 웹 구성방식
+- 시맨틱 태그
+    - header, nav, main, section, aside, article, footer 등
+    - 기본 HTML 태그가 아니고, 필수도 아님
+- 최근에는 잘 사용안함. div태그에 id로 부여해서 유사하게 사용 중
+- div만 잘 쓰면 됨
+
+### 웹 표준기술 - CSS
+
+#### 개요
+- 마크업 언어에 표시방법을 기술하는 종속형 시트(계단식 스타일시트)
+- WPF는 CSS와 유사한 방식을 차용
+- 문법
+    ```css
+    태그/아이디/클래스 {
+        /* key: value를 반복*/
+        key: value; /* C++ 주석 // 한줄 주석은 안됨 */
+    }
+    ```
+- html 태그 속성
+    - id : 웹페이지 하나당 한번만 쓸것
+    - class : 여러번 사용가능
+
+- UI기술로 많은 분야에서 사용
+    - Qt, PyQt, Electron, Flutter(모바일), React Native(모바일), React.js, ...
+- [소스](./day01/html08.html)
 
 ## 2일차
 
