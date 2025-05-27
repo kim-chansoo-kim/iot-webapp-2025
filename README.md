@@ -346,5 +346,22 @@
 
 ### 프론트엔드 활용
 - HTML5 + CC3 + JS 응용예제
+- Modern Business 템플릿 클로닝
+    - 
+
+#### Modern Business 클로닝
+1. 모든 웹페이지 시작은 index.* (.html, .asp, .jsp, .cshtml...)
+2. 폴더 구성 : css, js, assets
+3. favicon.ico 구성
+4. Bootstrap 다운로드 후 폴더에 구성(not CDN)
+    - bootstrap-5.3.6-dist.zip
+5. Bootstrap Icon 링크 클릭 다운로드
+    - https://getbootstrap.com/docs/5.3/getting-started/download/
+    - bootstrap-icons-1.13.1.zip
+    - css 폴더 아래 fonts 폴더 생성
+    - bootstrap-icons.woff, bootstrap-icons.woff2 붙여넣기
+
+#### HTML5 Responsive Web template
+- https://html5up.net/
 
 ### ASP.NET Core 
