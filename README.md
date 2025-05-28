@@ -347,7 +347,14 @@
 ### 프론트엔드 활용
 - HTML5 + CC3 + JS 응용예제
 - Modern Business 템플릿 클로닝
-    - 
+    - https://startbootstrap.com/template/modern-business 
+
+    <img src="./image/web0006.png" width="700">
+
+    - 압축파일 다운로드 후 압축해제
+
+#### HTML5 Responsive Web template 
+- https://html5up.net/
 
 #### Modern Business 클로닝
 1. 모든 웹페이지 시작은 index.* (.html, .asp, .jsp, .cshtml...)
@@ -356,12 +363,88 @@
 4. Bootstrap 다운로드 후 폴더에 구성(not CDN)
     - bootstrap-5.3.6-dist.zip
 5. Bootstrap Icon 링크 클릭 다운로드
-    - https://getbootstrap.com/docs/5.3/getting-started/download/
+    - https://github.com/twbs/icons/releases/tag/v1.13.1
     - bootstrap-icons-1.13.1.zip
     - css 폴더 아래 fonts 폴더 생성
     - bootstrap-icons.woff, bootstrap-icons.woff2 붙여넣기
+6. body 마지막 Bootstrap js 링크 추가
+7. body 내의 태그영역으로 나눠서 클로닝
+    - div, main
+        - div, nav
+        - div, header
+        - div, feature
+        - div, testimonial
+        - div, blog_section
+    - div, footer
+8. 태그 내에 Bootstrap 클래스 적용
+9. Bootstrap Example의 테마 적용
+10. 전체화면
 
-#### HTML5 Responsive Web template
-- https://html5up.net/
+    https://github.com/user-attachments/assets/d205515e-3edc-4a2a-a538-a08137dad2b1
+
+### 5일차
 
 ### ASP.NET Core 
+- ASP : Active Server Page. Classic ASP라고 부름. 동적인 웹페이지를 만드는 기술
+- 프론트엔드(HTML + CSS + JS) 상에서 동작하는 기술을 동적 웹페이지라고 부르지 않음
+- 동적 웹페이지 : 사용자가 웹서버에 요청을 해서 값이 변경되는 것
+
+    <img src="./image/web0007.png" width="600">
+
+- IIS : Internet Information Service. MS가 윈도우 운영체제에 포함시킨 `웹 서버`
+    - 윈도우 프로그램 추가 제거(appwiz.cpl)
+    - 윈도우 기능 켜기/끄기 > 인터넷 정보 서비스 클릭 후 확인
+
+- 윈도우 설정은 일반 사용자용, 제어판은 개발자용
+    - 제어판 > Windows Tools > IIS(인터넷 정보 서비스) 관리자
+
+    <img src="./image/web0008.png" width="600">
+
+- Java가 1995년 출현하면서 Classic ASP, Classic VB등의 옛날 MS기술이 위협
+- 2000년 초반에 .NET 프레임워크를 출시
+    - C#, VB(.NET) 새로운 언어 들이 포함됨
+    - 위의 언어들로 개발할 수 있는 웹 기술인 ASP.NET 등장
+    - 이후 언어는 계속 발전
+    - 2016년에 멀티플렛폼 ASP.NET core
+    - 2020년에 .NET Framework(Windows전용)을 .NET 5.0(멀티플렛폼)으로 변경
+
+#### ASP.NET Core 장점
+- 빠르다 : 초창기 ASP.NET은 C#으로 Winforms마드는 것처럼 개발 (개발생산성은 좋지만 렌더링 속도가 무지하게 느렸음) MVC모델로 분리하면서 윈폼식 개발을 제거
+- 오픈소스 : Java JSP/Spring, Python Flask 등이 오픈소스로 발전하니까 MS도 오픈소스 전향
+- 크로스 플렛폼 : Windows에서만 동작하던 걸, MacOS, Linux 등으로 확대 시킴
+- 종속성 주입 : Dependencty Injection. Spring쪽에 특화되던 기술을 접목해옴. 개발시간 절약
+- 개발용 웹서버 : ISS가 Visual Studio에 포함. 웹서버 설정을 할 필요가 없음
+- 클라우드 친화적 : MS Azure 등의 클라우드와 연계가 쉬움
+- MVC 모델 : Model View Controller를 따로 개발. Spring Boot도 동일
+- 최적화가 잘 되어 있음.
+
+#### ASP.NET Core 활용처
+- 웹 사이트 개발 : 기본적인 내용
+- 풀스택 개발 : 프론트엔트(React, Vue, Angular js) + 백엔드(ASP.NET Core)
+- API 서버 개발 : TMDB 영화 데이터 조회 API, Youtube API, 데이터 포털 API등의 데이터만 주고받는 서비스 개발
+- 도메인특화 솔루션 개발 : MES, ERP, SmartFactory, SmartShip 등
+- 이커머스 개발 : 쇼핑몰, 온라인 서점, 여행예매 사이트 등
+
+#### ASP.NET Core 시작
+1. Visual Studio 시작 > 새프로젝트 만들기
+2. ASP.NET Core 웹앱 (Model-View-Controller) 선택
+3. 프로젝트 이름, 위치, 솔루션 이름 입력
+4. 추가정보
+    - HTTPS : 보안 인증서를 신청, 다운로드 설정을 해야 함. 복잡, 체크해제
+    - 최상위 문 사용 안함 만 체크
+5. 빌드 후 실행
+6. Properties > launchSetting.json 에서 자신의 포트 번호 확인
+7. 기본 ASP.NET Core 웹앱에 포함된 프론트엔드 라이브러리
+    - Bootstrap 5.1.0
+    - jQuery 3.6.0
+    - 최신버전으로 변경하고 싶으면 다운로드 받아서 구성하면 됨
+    - 경로 - \wwwroot\lib\bootstrap\dist
+
+#### ASP.NET Core 프로젝트 구조
+- Properties > launchSettings.json - 웹서버 실행 설정
+- wwwroot - 정적 리소스 구성한 폴더
+    - css : 웹페이지에 추가적인 css
+    - js : 웹페이지 추가적인 js
+    - lib : Bootstrap, jQuery 등의 라이브러리 포함된 폴더
+    - favicon.ico : 웹페이지 대표 아이콘
+- 종속성 : .NET 관련 라이브러리()
