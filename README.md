@@ -384,7 +384,7 @@
 
     https://github.com/user-attachments/assets/d205515e-3edc-4a2a-a538-a08137dad2b1
 
-### 5일차
+## 5일차
 
 ### 웹개발 기술 용어
 - SPA : Single Page Applicaiton. 페이지를 이동해도 새로고침 없이 한페이지에서 작동하는 웹
@@ -547,7 +547,7 @@
 
     <img src="./image/web0013.png" width="600">
 
-## 5일차
+## 6일차
 
 ### ASP.NET Core
 
@@ -619,7 +619,7 @@
     https://github.com/user-attachments/assets/33b49f9b-946b-44ae-9ad2-ae6521bf1e7d
     
 
-## 6일차
+## 7일차
 
 ### ASP.NET Core
 
