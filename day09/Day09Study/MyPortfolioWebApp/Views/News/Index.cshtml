@@ -11,7 +11,7 @@
     var endPage = ViewBag.EndPage;
     var page = ViewBag.Page;
     var totalPage = ViewBag.TotalPage;
-    // 검색어도 컨트롤러에서 넘어옴
+    // 검색어도 컨트롤러에서 넘겨옴
     var search = ViewBag.Search;
 }
 
@@ -19,20 +19,20 @@
 
 <section id="news" class="section">
     <div class="container section-title" data-aos="fade-up">
-        <h2>공지</h2>
-        <p>알려드리고자 하는 내용입니다</p>
+        <h2>News</h2>
+        <p>Lorem ipsum dalat sit amet.</p>        
     </div>
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-between mb-2">
             <div class="col-3">
                 <a asp-controller="News" asp-action="Create"
-                class="btn btn-sm btn-success btn-kelly">작성</a>
+                   class="btn btn-sm btn-success btn-kelly">Create</a>
             </div>
             <div class="col-6">
                 <form asp-action="Index" method="get">
                     <div class="input-group input-group-sm justify-content-end">
-                        <input type="text" id="search" name="search" class="form-control-sm" value="@search"/>
+                        <input type="text" id="search" name="search" class="form-control-sm" value="@search" />
                         <button type="submit" class="btn btn-success">검색</button>
                     </div>
                 </form>
@@ -74,7 +74,7 @@
                         <td class="content-center">
                             @Html.DisplayFor(modelItem => item.PostDate)
                         </td>
-                        <td class="content-center"> 
+                        <td class="content-center">
                             @Html.DisplayFor(modelItem => item.ReadCount)
                         </td>                        
                     </tr>
@@ -88,30 +88,31 @@
                     @if (page > 1) // 첫페이지 버튼
                     {
                         <li class="page-item"><a href="?page=1&search=@search" class="page-link">≪</a></li>
-                    }
+                    }                 
 
                     @if (page > 1) // 이전페이지 버튼
                     {
-                        <li class="page-item"><a href="?page=@(page - 1)&search=@search" class="page-link">＜</a></li>
+                        <li class="page-item"><a href="?page=@(page-1)&search=@search" class="page-link">＜</a></li>
                     }
 
                     @for (var pcount = startPage; pcount <= endPage; pcount++)
                     {
                         if (pcount == page)                       
                         {
-                           <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link active">@pcount</a></li>
+                            <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link active">@pcount</a></li>
                         }
                         else 
                         {
                             <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link">@pcount</a></li>
                         }
                     }
-                    @if (page < totalPage)
+
+                    @if (page <totalPage) // 다음페이지
                     {
                         <li class="page-item"><a href="?page=@(page + 1)&search=@search" class="page-link">＞</a></li>
                     }
 
-                    @if (page != totalPage)
+                    @if (page != totalPage) // 마지막 페이지
                     {
                         <li class="page-item"><a href="?page=@totalPage&search=@search" class="page-link">≫</a></li>
                     }

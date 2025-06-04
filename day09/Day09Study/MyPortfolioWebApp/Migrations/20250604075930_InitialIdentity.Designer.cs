@@ -12,7 +12,7 @@ using MyPortfolioWebApp.Models;
 namespace MyPortfolioWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250604075937_InitialIdentity")]
+    [Migration("20250604075930_InitialIdentity")]
     partial class InitialIdentity
     {
         /// <inheritdoc />

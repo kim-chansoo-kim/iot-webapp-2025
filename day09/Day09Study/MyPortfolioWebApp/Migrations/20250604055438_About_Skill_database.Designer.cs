@@ -12,7 +12,7 @@ using MyPortfolioWebApp.Models;
 namespace MyPortfolioWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250604055548_About_Skill_database")]
+    [Migration("20250604055438_About_Skill_database")]
     partial class About_Skill_database
     {
         /// <inheritdoc />

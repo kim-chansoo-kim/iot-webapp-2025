@@ -9,14 +9,13 @@ namespace MyPortfolioWebApp.Models
 
         [Required]
         public string Summary { get; set; }
-
         [Required]
         public string Title { get; set; }
 
         public DateTime BirthDate { get; set; }
 
         public string WebSite { get; set; }
-
+        
         public string Mobile { get; set; }
 
         public string Address { get; set; }
