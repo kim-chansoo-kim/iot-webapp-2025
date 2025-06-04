@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyPortfolioWebApp.Models;
 
@@ -17,6 +18,10 @@ namespace MyPortfolioWebApp
                 ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("SmartHomeConnection"))
             ));
 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -27,8 +32,8 @@ namespace MyPortfolioWebApp
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseAuthentication(); // 계정
+            app.UseAuthorization(); // 권한
 
             app.MapControllerRoute(
                 name: "default",
