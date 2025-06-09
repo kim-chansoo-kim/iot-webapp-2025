@@ -13,6 +13,12 @@
         return string.Equals(controller, currController, StringComparison.OrdinalIgnoreCase)
              && string.Equals(action, currAction, StringComparison.OrdinalIgnoreCase);
     }
+
+    // 선택된 메뉴에 active 클래스 추가 메서드
+    string SetActive(string controller, string action)
+    {
+        return IsActive(controller, action) ? "active" : "";
+    }
 }
 
 <!DOCTYPE html>
@@ -52,19 +58,35 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <!-- ASP.NET Core Controller/View형태로 변경되어야 함 -->
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-controller="Resume" asp-action="Index">Resume</a></li>
-                    <li><a asp-controller="Resume" asp-action="Services">Services</a></li>
-                    <li><a asp-controller="Resume" asp-action="Portfolio">Portfolio</a></li>
+                    <li><a asp-controller="Home" asp-action="Index"
+                            class="@SetActive("home", "index")">홈</a></li>
+                    <li><a asp-controller="Home" asp-action="About"
+                           class="@SetActive("home", "about")">자기소개</a>
+                    </li>
+                    <li><a asp-controller="Resume" asp-action="Index"
+                           class="@SetActive("resume", "index")">이력서</a>
+                    </li>
+                    <li><a asp-controller="Resume" asp-action="Services"
+                           class="@SetActive("resume", "services")">서비스</a>
+                    </li>
+                    <li><a asp-controller="Resume" asp-action="Portfolio"
+                           class="@SetActive("resume", "portfolio")">포트폴리오</a>
+                    </li>
                     <li class="dropdown">
-                        <a href="#"><span>Board</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <a asp-controller="News" asp-action="Index"
+                           class="@SetActive("news", "index")"><span>게시판</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a asp-controller="News" asp-action="Index">News</a></li>
-                            <li><a asp-controller="Board" asp-action="Index">Board</a></li>
+                            <li><a asp-controller="News" asp-action="Index"
+                                   class="@SetActive("news", "index")">공지</a>
+                            </li>
+                            <li><a asp-controller="Board" asp-action="Index"
+                                   class="@SetActive("board", "index")">자유게시판</a>
+                            </li>
                         </ul>
                     </li>
-                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact"
+                           class="@SetActive("home", "contact")">문의하기</a>
+                    </li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MyPortfolioWebApp.Models.Board>
 @inject SignInManager<CustomUser> SignInManager
 @inject UserManager<CustomUser> UserManager
+
 @{
     var startPage = ViewBag.StartPage;
     var endPage = ViewBag.EndPage;
@@ -22,8 +23,7 @@
             <div class="col-3">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a asp-controller="Board" asp-action="Create"
-                       class="btn btn-sm btn-success btn-kelly">작성</a>
+                    <a asp-controller="Board" asp-action="Create" class="btn btn-sm btn-success btn-kelly">작성</a>
                 }
             </div>
             <div class="col-6">
@@ -35,58 +35,87 @@
                 </form>
             </div>
         </div>
+
         <table class="board-table">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Writer)</th>
-                    <th>@Html.DisplayNameFor(model => model.Title)</th>
-                    <th>@Html.DisplayNameFor(model => model.PostDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.ReadCount)</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Writer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().PostDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().ReadCount)
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="content-center">@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td class="content-center">@Html.DisplayFor(modelItem => item.Writer)</td>
+                        <td class="content-center">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td class="content-center">
+                            @Html.DisplayFor(modelItem => item.Writer)
+                        </td>
                         <td>
                             <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
                         </td>
-                        <td class="content-center">@Html.DisplayFor(modelItem => item.PostDate)</td>
-                        <td class="content-center">@Html.DisplayFor(modelItem => item.ReadCount)</td>
+                        <td class="content-center">
+                            @Html.DisplayFor(modelItem => item.PostDate)
+                        </td>
+                        <td class="content-center">
+                            @Html.DisplayFor(modelItem => item.ReadCount)
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
 
         <div class="text-center mt-3">
-            <ul class="pagination pagination-sm justify-content-center">
-                @if (page > 1)
-                {
-                    <li class="page-item"><a href="?page=1&search=@search" class="page-link">≪</a></li>
-                    <li class="page-item"><a href="?page=@(page - 1)&search=@search" class="page-link">＜</a></li>
-                }
-
-                @for (var pcount = startPage; pcount <= endPage; pcount++)
-                {
-                    if (pcount == page)
+            <div class="in">
+                <ul class="pagination pagination-sm justify-content-center">
+                    @if (page > 1) // 첫페이지 버튼
                     {
-                        <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link active">@pcount</a></li>
+                        <li class="page-item"><a href="?page=1&search=@search" class="page-link">≪</a></li>
                     }
-                    else
-                    {
-                        <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link">@pcount</a></li>
-                    }
-                }
 
-                @if (page < totalPage)
-                {
-                    <li class="page-item"><a href="?page=@(page + 1)&search=@search" class="page-link">＞</a></li>
-                    <li class="page-item"><a href="?page=@totalPage&search=@search" class="page-link">≫</a></li>
-                }
-            </ul>
+                    @if (page > 1) // 이전페이지 버튼
+                    {
+                        <li class="page-item"><a href="?page=@(page-1)&search=@search" class="page-link">＜</a></li>
+                    }
+
+                    @for (var pcount = startPage; pcount <= endPage; pcount++)
+                    {
+                        if (pcount == page)
+                        {
+                            <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link active">@pcount</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a href="?page=@pcount&search=@search" class="page-link">@pcount</a></li>
+                        }
+                    }
+
+                    @if (page < totalPage) // 다음페이지
+                    {
+                        <li class="page-item"><a href="?page=@(page + 1)&search=@search" class="page-link">＞</a></li>
+                    }
+
+                    @if (page != totalPage) // 마지막 페이지
+                    {
+                        <li class="page-item"><a href="?page=@totalPage&search=@search" class="page-link">≫</a></li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
 </section>

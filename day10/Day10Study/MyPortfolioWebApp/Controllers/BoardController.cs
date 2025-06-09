@@ -22,24 +22,20 @@ namespace MyPortfolioWebApp.Controllers
                 .Where(b => EF.Functions.Like(b.Title, $"%{search}%"))
                 .Count();
 
-            int countList = 10;
-            int totalPage = (int)Math.Ceiling(totalCount / (double)countList);
+            var countList = 10;
+            var totalPage = totalCount / countList;
 
-            if (totalPage == 0) totalPage = 1;
+            if (totalCount % countList > 0) totalPage++;
             if (totalPage < page) page = totalPage;
 
-            int countPage = 10;
-            int startPage = ((page - 1) / countPage) * countPage + 1;
-            int endPage = Math.Min(startPage + countPage - 1, totalPage);
+            var countPage = 10;
+            var startPage = ((page - 1) / countPage) * countPage + 1;
+            var endPage = startPage + countPage - 1;
 
-            int skip = (page - 1) * countList;
+            if (totalPage < endPage) endPage = totalPage;
 
-            var boardList = await _context.Board
-                .Where(b => EF.Functions.Like(b.Title, $"%{search}%"))
-                .OrderByDescending(b => b.PostDate)
-                .Skip(skip)
-                .Take(countList)
-                .ToListAsync();
+            var startCount = ((page - 1) * countPage) + 1;
+            var endCount = startCount + countList - 1;
 
             ViewBag.StartPage = startPage;
             ViewBag.EndPage = endPage;
@@ -47,7 +43,10 @@ namespace MyPortfolioWebApp.Controllers
             ViewBag.TotalPage = totalPage;
             ViewBag.Search = search;
 
-            return View(boardList);
+            var boards = await _context.Board
+            .FromSql($"CALL Board_PagingBoard({startCount}, {endCount}, {search})")
+            .ToListAsync();
+            return View(boards);
         }
 
         // GET: Board/Details/5
@@ -70,7 +69,7 @@ namespace MyPortfolioWebApp.Controllers
         {
             var board = new Board
             {
-                Writer = "관리자",
+                Writer = "익명",
                 PostDate = DateTime.Now,
                 ReadCount = 0,
             };
@@ -100,11 +99,16 @@ namespace MyPortfolioWebApp.Controllers
         // GET: Board/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             var board = await _context.Board.FindAsync(id);
-            if (board == null) return NotFound();
-
+            if (board == null)
+            {
+                return NotFound();
+            }
             return View(board);
         }
 
@@ -113,7 +117,8 @@ namespace MyPortfolioWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Contents,Email")] Board board)
         {
-            if (id != board.Id) return NotFound();
+            if (id != board.Id)
+            { return NotFound(); }
 
             if (ModelState.IsValid)
             {
@@ -132,7 +137,7 @@ namespace MyPortfolioWebApp.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!BoardExists(board.Id)) return NotFound();
-                    throw;
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
