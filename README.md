@@ -2,6 +2,9 @@
 
 <p>IoT 개발자 과정 <a href="https://dotnet.microsoft.com/ko-kr/apps/aspnet" target="_blank" style="color:red;">ASP.NET Core</a> 학습 리포지토리</p>
 
+## 코딩테스트 리드미
+
+
 ## 1일차
 
 ### Web
@@ -974,6 +977,8 @@
 |PUT ~/api/books{id}|기존책 수정|Book|None|
 |DELETE ~/api/books{id}|기존책 삭제|None|None|
 
+   <img src="./image/web0026.png" width="600">
+
 1. WdbAPI 프로젝트 생성
 2. Models.Book 모델 클래스 생성
 3. EntityFramework NuGet 패키지 설치
@@ -985,6 +990,41 @@
 7. Program.cs AppDbContext 초기화 추가
 8. 스케폴딩으로 Controller 추가
     - API > EntityFramework 사용 동작이 포함된 API컨트롤러
+
+    <img src="./image/web0027.png" width="600">
+
+9. 서버 실행
+
+    <img src="./image/web0028.png" width="600">
+
+#### OpenAPI 형식 WebAPI 연습
+1. IoT 센서데이터를 웹 API 서비스
+2. Python에서 더미데이터 100만건 생성
+3. WebAPI 프로젝트 생성
+4. EntityFramework NuGet 패키지 설치
+    - Microsoft.EntityFrameworkCore
+    - Pomelo.EntityFrameworkCore.MySql
+5. appsettings.json DB연결문자열 추가
+6. MySQL iot_datas 테이블 생성
+7. Models.iot_datas 클래스 생성
+8. Models.AppDbContext 클래스 생성
+9. Program.cs AppDbContext 초기화 추가
+10. 스케폴딩으로 Controller 추가
+    - Get 메서드 외 모두 삭제
+11. Get 메서드 파라미터 추가, 쿼리 실행 로직 추가
+12. Swagger UI에서 테스트
+
+    <img src="./image/web0030.png" width="600">
+
+13. 웹브라우저 실행 확인
+
+    <img src="./image/web0031.png" width="600">
+
+## 12일차
+
+### ASP .NET Core API서버(계속)
+
+#### WebAPI 서버 + 웹사이트 + 윈앱
 
 
 ### AWS 클라우드 업로드
