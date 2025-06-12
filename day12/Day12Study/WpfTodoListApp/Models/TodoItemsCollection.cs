@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 
 namespace WpfTodoListApp.Models
 {
-    class TodoItemsCollection : ObservableCollection<TodoItem>
+    public class TodoItemsCollection : ObservableCollection<TodoItem>
     {
         // API로 들어오는 값은 List -> ObservableCollection으로 변환
         public void CopyFrom(IEnumerable<TodoItem> todoItems)
