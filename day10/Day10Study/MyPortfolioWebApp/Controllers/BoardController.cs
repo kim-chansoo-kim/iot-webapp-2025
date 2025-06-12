@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPortfolioWebApp.Models;
+using MySqlConnector;
 
 namespace MyPortfolioWebApp.Controllers
 {
@@ -44,8 +45,12 @@ namespace MyPortfolioWebApp.Controllers
             ViewBag.Search = search;
 
             var boards = await _context.Board
-            .FromSql($"CALL Board_PagingBoard({startCount}, {endCount}, {search})")
-            .ToListAsync();
+                .FromSqlRaw("CALL Board_PagingBoard(@startCount, @endCount, @search)",
+                    new MySqlParameter("@startCount", startCount),
+                    new MySqlParameter("@endCount", endCount),
+                    new MySqlParameter("@search", search ?? string.Empty))
+                .ToListAsync();
+
             return View(boards);
         }
 
@@ -79,11 +84,14 @@ namespace MyPortfolioWebApp.Controllers
         // POST: Board/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Contents,Email")] Board board)
+        public async Task<IActionResult> Create([Bind("Title,Contents,Email,Writer")] Board board)
         {
             if (ModelState.IsValid)
             {
-                board.Writer = "관리자";
+                if (string.IsNullOrEmpty(board.Writer))
+                {
+                    board.Writer = "익명"; // 미입력시 익명 처리
+                }
                 board.PostDate = DateTime.Now;
                 board.ReadCount = 0;
 
@@ -115,7 +123,7 @@ namespace MyPortfolioWebApp.Controllers
         // POST: Board/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Contents,Email")] Board board)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Contents,Email,Writer")] Board board)
         {
             if (id != board.Id)
             { return NotFound(); }

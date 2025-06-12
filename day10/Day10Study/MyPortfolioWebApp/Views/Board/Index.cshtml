@@ -40,7 +40,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().Id)
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FirstOrDefault().Writer)
@@ -61,7 +61,7 @@
                 {
                     <tr>
                         <td class="content-center">
-                            @Html.DisplayFor(modelItem => item.Id)
+                            @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td class="content-center">
                             @Html.DisplayFor(modelItem => item.Writer)
