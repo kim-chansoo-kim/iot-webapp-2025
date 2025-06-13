@@ -34,8 +34,9 @@
                     </div>
                     <!-- 파일 업로드 영역 -->
                     <div class="form-group mb-2">
-                        <label asp-for="UploadFile" class="control-label"></label>
+                        <label asp-for="UploadFile" class="control-label"></label> [최대용량 : 10MB]
                         <input type="file" asp-for="UploadFile" class="form-control" />
+                        <span asp-validation-for="UploadFile" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="저장" class="btn btn-sm btn-success btn-kelly" />

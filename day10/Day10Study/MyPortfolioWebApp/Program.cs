@@ -10,6 +10,11 @@ namespace MyPortfolioWebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // 파일업로드 용량 제한
+            builder.WebHost.ConfigureKestrel(options => {
+                options.Limits.MaxRequestBufferSize = 10 * 1024 * 1024; // 10MB로 제한
+            });
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             // DB연결 초기화

@@ -110,11 +110,19 @@ namespace MyPortfolioWebApp.Controllers
         // <form asp-controller="News" asp-action="Create"> 이 http://localhost:5234/News/Create 포스트메서드 호출
         public async Task<IActionResult> Create([Bind("Id,Title,Description")] News news, IFormFile? UploadFile)
         { 
+            const long MaxFileSize = 10 * 1024 * 1024;
+
             if (ModelState.IsValid)
             {
                 if (UploadFile != null && UploadFile.Length > 0)
                 {
                     Debug.WriteLine(UploadFile.Length);
+
+                    if (UploadFile.Length > MaxFileSize)
+                    {
+                        ModelState.AddModelError("UploadFile", "파일크기는 10MB 이하로 제한합니다.");
+
+                    }
 
                     string upFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload");
                     Directory.CreateDirectory(upFolder); // 폴더가 없으면 생성
