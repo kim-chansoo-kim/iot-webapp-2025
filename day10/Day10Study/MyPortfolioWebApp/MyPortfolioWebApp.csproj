@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="BackupModels\" />
+    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
 </Project>

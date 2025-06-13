@@ -32,10 +32,19 @@
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.Description)
-                </dt>                
+                </dt>
                 <dd class="col-sm-10">
                     @* @Html.DisplayFor(model => model.Description) *@
                     @Markdown.ParseHtmlString(Model.Description)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.UploadFile)
+                </dt>
+                <dd class="col-sm-10">
+                    @if (!string.IsNullOrEmpty(Model.UploadFile))
+                    {
+                    }
+                        <a href="~/upload/@Model.UploadFile" target="_blank">@Model.UploadFile</a>
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.PostDate)

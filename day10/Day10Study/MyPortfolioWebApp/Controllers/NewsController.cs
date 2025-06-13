@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPortfolioWebApp.Models;
+using System.Diagnostics;
 
 namespace MyPortfolioWebApp.Controllers
 {
@@ -107,10 +108,33 @@ namespace MyPortfolioWebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // <form asp-controller="News" asp-action="Create"> 이 http://localhost:5234/News/Create 포스트메서드 호출
-        public async Task<IActionResult> Create([Bind("Id,Title,Description")] News news)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description")] News news, IFormFile? UploadFile)
         { 
             if (ModelState.IsValid)
             {
+                if (UploadFile != null && UploadFile.Length > 0)
+                {
+                    Debug.WriteLine(UploadFile.Length);
+
+                    string upFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload");
+                    Directory.CreateDirectory(upFolder); // 폴더가 없으면 생성
+
+                    // example.jpg파일이 여러번 올라가면 파일이 겹쳐짐
+                    // 파일명을 변경
+                    // Guid.NewGuid() = 랜덤아이디 생성
+                    // Path.GetExtension() = 파일의 확장자만 가져옴 .jpg
+                    string newFileName = Guid.NewGuid() + Path.GetExtension(UploadFile.FileName); // 124-1244235-12532-135.jpg 이런식
+                    string filePath = Path.Combine(upFolder, newFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await UploadFile.CopyToAsync(stream); // 파일저장
+                    }
+
+                    // 모델에 파일명 할당
+                    news.UploadFile = newFileName;
+
+                }
                 news.Writer = "관리자"; // 작성자는 자동으로 관리자
                 news.PostDate = DateTime.Now; // 게시일자는 현재
                 news.ReadCount = 0; 
@@ -148,7 +172,7 @@ namespace MyPortfolioWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description")] News news, IFormFile? NewFile)
         {
             if (id != news.Id)
             {
@@ -168,6 +192,31 @@ namespace MyPortfolioWebApp.Controllers
 
                     existingNews.Title = news.Title;
                     existingNews.Description = news.Description;
+
+                    // 파일이 변경되었으면
+                    if (NewFile != null && NewFile.Length > 0)
+                    {
+                        Debug.WriteLine(NewFile.Length);
+
+                        string upFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload");
+                        Directory.CreateDirectory(upFolder); // 폴더가 없으면 생성
+
+                        // example.jpg파일이 여러번 올라가면 파일이 겹쳐짐
+                        // 파일명을 변경
+                        // Guid.NewGuid() = 랜덤아이디 생성
+                        // Path.GetExtension() = 파일의 확장자만 가져옴 .jpg
+                        string newFileName = Guid.NewGuid() + Path.GetExtension(NewFile.FileName); // 124-1244235-12532-135.jpg 이런식
+                        string filePath = Path.Combine(upFolder, newFileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await NewFile.CopyToAsync(stream); // 파일저장
+                        }
+
+                        // 모델에 파일명 할당
+                        existingNews.UploadFile = newFileName;
+
+                    }
 
                     // UPDATE News SET ...
                     //_context.Update(news); // 방식1 ID가 같은 새글을 UPDATE하면 수정                    

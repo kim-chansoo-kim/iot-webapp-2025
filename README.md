@@ -2,8 +2,103 @@
 
 <p>IoT 개발자 과정 <a href="https://dotnet.microsoft.com/ko-kr/apps/aspnet" target="_blank" style="color:red;">ASP.NET Core</a> 학습 리포지토리</p>
 
-## 코딩테스트 게시판(Board) 구현
+## MyPortfolioWebApp - 게시판 구현 코딩테스트
 
+<h1 align="center">📌 MyPortfolioWebApp - ASP.NET MVC 게시판 프로젝트</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/ASP.NET%20Core-6.0-blue" />
+  <img src="https://img.shields.io/badge/MySQL-8.x-blue" />
+  <img src="https://img.shields.io/badge/Entity%20Framework%20Core-ORM-green" />
+  <img src="https://img.shields.io/badge/Language-C%23-orange" />
+  <img src="https://img.shields.io/badge/Platform-Web-lightgrey" />
+</p>
+
+---
+
+## 📖 프로젝트 개요
+
+**MyPortfolioWebApp**는 ASP.NET Core MVC와 MySQL을 기반으로 제작한 게시판 프로젝트입니다.
+
+- 📝 CRUD 게시판 구현
+- 🔎 검색 및 페이징 기능
+- 🚀 MySQL Stored Procedure 활용
+
+이 프로젝트는 ASP.NET Core MVC 프레임워크를 학습하며, 웹 서비스의 기본인 게시판 시스템을 설계부터 구현까지 직접 경험하기 위해 진행되었습니다.
+
+## 영상 및 사진
+- 자유게시판 메인화면
+
+<img src="./image/ct0001.png" width="800">
+
+
+- 자유게시판 작성화면
+<img src="./image/ct0002.png" width="800">
+
+- 영상
+
+## 기술 스택
+
+| 분류 | 기술 |
+| ---- | ---- |
+| Language | C# |
+| Framework | ASP.NET Core MVC |
+| ORM | Entity Framework Core |
+| Database | MySQL 8.x |
+| Database Driver | MySqlConnector |
+| View Engine | Razor |
+| Tools | Visual Studio 2022, Git, GitHub |
+| Package Manager | NuGet |
+
+---
+
+## ✨ 주요 기능
+
+### 게시판 CRUD
+- 게시글 작성(Create)
+- 게시글 상세보기(Read)
+- 게시글 수정(Update)
+- 게시글 삭제(Delete)
+
+### 작성자 지정
+- 작성 시 **작성자(Writer)** 입력 가능
+- 미입력시 기본값: `익명`
+
+### 검색 기능
+- 게시글 제목 기준으로 검색
+- 검색어가 없으면 전체 조회
+
+### 페이징 기능
+- 한 페이지당 10개 게시글 노출
+- MySQL Stored Procedure를 이용한 효율적인 페이징 처리
+
+### 조회수 증가
+- 게시글 상세보기 진입 시 조회수 자동 증가
+
+### 검색 + 페이징 연동
+
+- 검색어가 유지된 상태에서 페이징 지원
+
+---
+
+### 프로젝트 구조
+```markdown
+/Models
+Board.cs # 게시판 데이터 모델
+
+/Controllers
+BoardController.cs # 게시판 비즈니스 로직
+
+/Views/Board
+Index.cshtml # 게시글 리스트 + 검색 + 페이징
+Create.cshtml # 게시글 작성
+Edit.cshtml # 게시글 수정
+Delete.cshtml # 게시글 삭제
+Details.cshtml # 게시글 상세보기
+
+/Data
+ApplicationDbContext.cs # EF Core DB 컨텍스트
+```
 
 ## 1일차
 
@@ -1126,10 +1221,12 @@
     3. ServerManager 오픈
         - Configure this local server
         - IE Enhanced Security Config : On(웹사이트 오픈 불가) -> OFF
+
 3. 필요 SW다운로드
     1. MySql
     2. Chrome browser(option)
     3. FileZilla FTP Server
+
 4. MySql 설치
     1. Custum 선택
     2. MySql Server 8.0.34 - x64 만 선택, 설치 후 NEXT
@@ -1143,7 +1240,8 @@
         - Inbound Rules > Port 3306 확인, 없으면 생성
     8. 라이트세일 인스턴스 관리 > 네트워크 
         - IPv4방화벽에 규칙 추가
-    9. 
+    9. MySQL Workbench 접속 생성/확인
+
 5. FileZilla FTP 서버 설치
     1. 설치는 Next로 설치
     2. 서버 시작 후
@@ -1171,6 +1269,7 @@
         - 네트워크 IPv4 방화벽에서 21, 55000~55999 포트 오픈
     9. 로컬 PC에 파일질라 클라이언트 설치
         - 접속확인
+
 6. Visual Studio 프로젝트 오픈(MyPortfolioWebApp)
     1. 게시 > FTP/FTPS 선택
     2. 서버 - ftps://aws-public-ip
@@ -1178,18 +1277,79 @@
     4. 수동모드 - 체크
     5. 사용자이름/패스워드 - FileZilla 서버 설정한 계정
     6. 연결유효성후 인증서 승인
+
 7. MySQL WorkBench
     1. Local DB의 데이터베이스 Server > DataExport로 백업
     2. AWS MySQL WorkBench에서 FTP로 전달한 sql을 Server > Data Import로 복구
     3. 저장프로시저는 쿼리 복사해서 재실행
 
-### 부가적인 기능
-- OAuth (구글로그인)
-- 파일업로드
-- WebAPI 서버 + 웹사이트 할일 수정
-
-### MyPortfolio 완성
 
 ## 15일차
+
+### AWS 클라우드 업로드
+
+#### 14일차 확인한 문제
+- FileZilla FTP와 연동 VS에서 FTPP로 게시할때 업로드 문제
+- 파일자체는 업로드 성공, 실패메시지가 리턴
+- 다른 방법
+    - IIS + WebDeploy : 현재 문제발생
+    - IIS FTP 사용 : 해결방법
+
+#### AWS 라이트세일 웹서버 올리기(계속)
+1. 인스턴스 진입
+    1. 서비스 오픈 > FileZilla-Server 중지(Start type Manual)
+    2. Server Manager 실행 -> Add rols and features
+        - Role-based or feature-based installation -> 자기 서버 선택 Next
+        - 아래 기능 설치
+            - WebServer IIS 선택 후 Add Features
+            - Health And Dialognostics -> Logging Tool, Request Monitor 추가 선택
+            - Application Deployment -> ASP.NET 4.8, ISAPI Extenstions, ISAPI Filters 추가 선택
+            - FTP Server 아래 전부 선택
+    3. asp.net core hosting bundle 8.0 웹브라우저 검색
+        - https://dotnet.microsoft.com/en-us/download/dotnet/8.0
+
+    4. dotdotnet-hosting-8.0.17-win.exe 설치
+        - 콘솔(파워쉘)에서 iisrest 실행
+    5. IIS 서비스
+        - Modules -> AspNetCoreModuleV2가 있는지 확인
+        - Add FTPSite...
+            - 이름, 물리적 경로 선택
+            - IP : All Unassigned, Port : 21, SSL : Allow SSL 선택
+            - Authentucation : Basic, 사용자 : Administrator, 암호 : AWS 인스턴스 암호사용
+            - Authorization : permision, READ/WRITE 둘다 체크
+    6. OS 방화벽, AWS 인스턴스 방화벽
+        - OS 방화벽 : 21, 1024 - 65535 전부 오픈
+        - AWS 인스턴스 네트워크도 동일하게 오픈
+
+2. 90일 이후
+    - 비용발생안하려면 반드시 삭제할것
+
+
+### 부가적인 기능
+- 파일업로드
+- OAuth (구글로그인)
+
+#### 웹사이트 파일업로드 기능 구현
+1. Model.News
+    - UploadFile 속성 추가
+2. MySQL Workbench
+    - News 테이블 UploadFile 컬럼 추가
+    - 운영중인 테이블에 새 컬럼을 추가하면 `Not Null로 설정불가`!
+3. New_PagingBoard 저장프로시저 오류 수정
+    - UploadFile 컬럼이 추가되어 생기는 오류
+4. Views/News/Create.cshtml
+    - 입력양식에 파일입력 추가
+    - form 태그에 파일업로드 enctype 속성 추가
+5. wwwroot/upload 폴더 추가
+6. Controller/NewsController.cs
+    - Create() Post메서드에 파일 파라미터 추가
+    - 파일 저장 로직 추가
+7. Views/News/Details.cshtml, Delete.cshtml 동일
+    - 파일 다운로드 영역 추가
+8. Views/News/Edit.cshtml
+    - 파일 업로드 영역 추가(Create.cshtml과 유사)
+9. Controller/NewsController.cs
+    - Edit() Post메서드에 파일 파라미터 추가
+    - 파일저장
 
 ### 전체 마무리

@@ -31,5 +31,9 @@ namespace MyPortfolioWebApp.Models
         [DisplayName("조회수")]
         [BindNever]
         public int ReadCount { get; set; }
+
+        // 파일 저장 경로명 /wwwroot/upload/text.txt 중에서 /text.txt 이부분이 첨부파일명
+        [DisplayName("첨부파일")]
+        public string? UploadFile { get; set; }
     }
 }
