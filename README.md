@@ -37,6 +37,12 @@
 
 - 영상
 
+
+
+https://github.com/user-attachments/assets/40c93224-ac7f-4a8e-823c-81c31f0166b5
+
+
+
 ## 기술 스택
 
 | 분류 | 기술 |
